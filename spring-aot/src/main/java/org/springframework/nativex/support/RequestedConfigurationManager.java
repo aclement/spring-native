@@ -61,7 +61,7 @@ public class RequestedConfigurationManager {
 	}
 	
 	public void requestTypeAccess(String type, Integer accessRequired, List<MethodDescriptor> mds, List<FieldDescriptor> fds) {
-		if (type.contains("Configuration")) {
+		if (type.contains("Condition")) {
 			new RuntimeException("XXXZ: how did we end up here? "+type).printStackTrace();
 		}
 		if (type.indexOf("/")!=-1) {

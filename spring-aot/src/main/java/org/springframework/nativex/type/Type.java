@@ -1246,11 +1246,11 @@ public class Type {
 			if (isImportSelector() && hints.size() == 0) {
 				// Failing early as this will likely result in a problem later - fix is
 				// typically (right now) to add a new Hint in the configuration module
-				if (typeSystem.failOnMissingSelectorHint()) {
-					throw new IllegalStateException("No access hint found for import selector: " + getDottedName());
-				} else {
+//				if (typeSystem.failOnMissingSelectorHint()) {
+//					throw new IllegalStateException("No access hint found for import selector: " + getDottedName());
+//				} else {
 					logger.debug("WARNING: No access hint found for import selector: " + getDottedName());
-				}
+//				}
 			}
 		} catch (MissingTypeException mte) {
 			logger.debug("Unable to determine if type " + getName()
@@ -2262,7 +2262,8 @@ public class Type {
 			}
 			return access;
 		} else if (t.isCondition()) {
-			return AccessBits.CLASS | AccessBits.DECLARED_CONSTRUCTORS | AccessBits.RESOURCE;
+			return AccessBits.NONE;
+//			return AccessBits.CLASS | AccessBits.DECLARED_CONSTRUCTORS | AccessBits.RESOURCE;
 		} else if (t.isComponent() || t.isApplicationListener()) {
 			return AccessBits.ALL;
 		} else if (t.isEnvironmentPostProcessor()) {

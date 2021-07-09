@@ -34,7 +34,7 @@ import org.springframework.nativex.hint.AccessBits;
 
 @NativeHint(trigger = AdviceModeImportSelector.class, abortIfTypesMissing = true, follow = true)
 @NativeHint(trigger = Import.class, follow = true) // Whatever is @Imported should be followed
-@NativeHint(trigger = Conditional.class, extractTypesFromAttributes = "value" ) // TODO need extract?
+//@NativeHint(trigger = Conditional.class, extractTypesFromAttributes = "value" ) // TODO need extract?
 @NativeHint(types = @TypeHint(types = { ComponentScan.class, Configuration.class }, access = AccessBits.CLASS | AccessBits.DECLARED_METHODS))
 // TODO Check required access for enums like this FilterType
 @NativeHint(types = { @TypeHint(types = FilterType.class, access = AccessBits.CLASS | AccessBits.DECLARED_METHODS | AccessBits.DECLARED_FIELDS) })

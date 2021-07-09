@@ -734,8 +734,8 @@ public class ResourcesHandler extends Handler {
 				// This 'name' may not be the same as 's' if 's' referred to an inner type -
 				// 'name' will include the right '$' characters.
 				String name = t.getDottedName();
-				if (t.hasOnlySimpleConstructor()) {
-					reflectionHandler.addAccess(name, new String[][] { { "<init>" } },null, false);
+				if (t.hasOnlySimpleConstructor() && t.isPublic()) {
+//					reflectionHandler.addAccess(name, new String[][] { { "<init>" } },null, false);
 				} else {
 					reflectionHandler.addAccess(name, Flag.allDeclaredConstructors);
 				}
@@ -843,8 +843,11 @@ public class ResourcesHandler extends Handler {
 						continue;
 					}
 					if (ts.shouldBeProcessed(k)) {
+						if (!k.equals("org.springframework.boot.autoconfigure.AutoConfigurationImportFilter")) {
+							//org.springframework.boot.autoconfigure.AutoConfigurationImportFilter=org.springframework.boot.autoconfigure.condition.OnBeanCondition,org.springframework.boot.autoconfigure.condition.OnClassCondition,org.springframework.boot.autoconfigure.condition.OnWebApplicationCondition	
 						for (String v : p.getProperty(k).split(",")) {
 							registerTypeReferencedBySpringFactoriesKey(v);
+						}
 						}
 					} else {
 						logger.debug("Skipping processing spring.factories key " + k + " due to missing guard types");
@@ -1480,7 +1483,7 @@ public class ResourcesHandler extends Handler {
 			isConfiguration = resolve.isAtConfiguration();
 		}
 
-		if (!isConfiguration) {
+		if (!isConfiguration && !type.isCondition()) {
 			accessManager.requestTypeAccess(typename, Type.inferAccessRequired(type));
 			// TODO need this guard? if (isConfiguration(configType)) {
 			registerHierarchy(pc, type, accessManager);
@@ -1497,7 +1500,7 @@ public class ResourcesHandler extends Handler {
 		List<Type> nestedTypes = type.getNestedTypes();
 		for (Type t : nestedTypes) {
 			if (pc.recordVisit(t.getName())) {
-				if (!(t.isAtConfiguration() || t.isConditional() || t.isMetaImportAnnotated() || t.isComponent())) {
+				if (!(t.isAtConfiguration() /*|| t.isConditional()*/ || t.isMetaImportAnnotated() || t.isComponent())) {
 					continue;
 				}
 				try {
@@ -1810,7 +1813,10 @@ public class ResourcesHandler extends Handler {
 					if (returnType.isComponent()) {
 						toFollow.put(returnType, ReachedBy.AtBeanReturnType);
 					}
-					rcm.mergeIn(methodRCM);
+					
+//					rcm.mergeIn(methodRCM);
+					
+					
 					logger.debug("method passed checks - adding configuration for it");
 				} catch (IllegalStateException ise) {
 					// usually if asConfigurationArray() fails - due to an unresolvable type - it indicates

@@ -22,22 +22,22 @@ import org.springframework.nativex.hint.TypeHint;
 import org.springframework.nativex.hint.AccessBits;
 
 
-@NativeHint(trigger = ImportAutoConfigurationImportSelector.class, types =
-		{
-				@TypeHint(types = ImportAutoConfiguration.class),
-				@TypeHint(types = ImportAutoConfigurationImportSelector.class, access = AccessBits.LOAD_AND_CONSTRUCT | AccessBits.RESOURCE)
-		}
-)
-@NativeHint(trigger = AutoConfigurationImportSelector.class)
+//@NativeHint(trigger = ImportAutoConfigurationImportSelector.class, types =
+//		{
+//				@TypeHint(types = ImportAutoConfiguration.class),
+//				@TypeHint(types = ImportAutoConfigurationImportSelector.class, access = AccessBits.LOAD_AND_CONSTRUCT | AccessBits.RESOURCE)
+//		}
+//)
+//@NativeHint(trigger = AutoConfigurationImportSelector.class)
 @TypeHint(types = { AutoConfigureBefore.class, AutoConfigureAfter.class, AutoConfigureOrder.class, AutoConfigurationPackage.class },
   access = AccessBits.CLASS | AccessBits.DECLARED_METHODS) 
 // TODO why isn't this one pulled in via @EnableAutoConfiguration handling?
 @NativeHint(types = {
 	@TypeHint(types = {
 			AutoConfigurationImportSelector.class,
-			AutoConfigurationPackages.class,
-			AutoConfigurationPackages.Registrar.class,
-			AutoConfigurationPackages.BasePackages.class,
+//			AutoConfigurationPackages.class,
+//			AutoConfigurationPackages.Registrar.class,
+//			AutoConfigurationPackages.BasePackages.class,
 			EnableAutoConfiguration.class,
 			SpringBootApplication.class
 	}, access = AccessBits.LOAD_AND_CONSTRUCT | AccessBits.PUBLIC_METHODS)
