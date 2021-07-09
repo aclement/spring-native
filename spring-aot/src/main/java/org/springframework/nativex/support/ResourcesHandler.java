@@ -109,13 +109,16 @@ public class ResourcesHandler extends Handler {
 	 * Callback from native-image. Determine resources related to Spring applications that need to be added to the image.
 	 */
 	public void register() {
+		System.out.println("XXXMODE is "+aotOptions.toMode());
 		if (aotOptions.toMode() == Mode.NATIVE ||
-				aotOptions.toMode() == Mode.NATIVE_AGENT) {
+				aotOptions.toMode() == Mode.NATIVE_AGENT ||
+				aotOptions.toMode() == Mode.NATIVE_NEXT) {
 			processSpringFactories();
 		}
 		handleConstantHints(aotOptions.toMode() == Mode.NATIVE_INIT);
 		if (aotOptions.toMode() == Mode.NATIVE ||
-				aotOptions.toMode() == Mode.NATIVE_AGENT) {
+				aotOptions.toMode() == Mode.NATIVE_AGENT ||
+				aotOptions.toMode() == Mode.NATIVE_NEXT) {
 			handleSpringComponents();
 		}
 	}
@@ -1039,6 +1042,8 @@ public class ResourcesHandler extends Handler {
 				}
 				rcm.requestTypeAccess(typename, bits, ad.getMethodDescriptors(),ad.getFieldDescriptors());
 			} else {
+				// e.g. RedisCacheConfiguration hint directly on ImportSelector
+				if (!t.isAtConfiguration()) {
 				if (AccessBits.isResourceAccessRequired(accessBits)) {
 					rcm.requestTypeAccess(typename, AccessBits.RESOURCE);
 					rcm.requestTypeAccess(typename, accessBits, ad.getMethodDescriptors(), ad.getFieldDescriptors());
@@ -1047,6 +1052,7 @@ public class ResourcesHandler extends Handler {
 					// TODO worth limiting it solely to @Bean methods? Need to check how many
 					// configuration classes typically have methods that are not @Bean
 				}
+				}
 				if (t.isAtConfiguration()) {
 					// This is because of cases like Transaction auto configuration where the
 					// specific type names types like ProxyTransactionManagementConfiguration
@@ -1054,7 +1060,7 @@ public class ResourcesHandler extends Handler {
 					// There is a conditional on bean later on the supertype
 					// (AbstractTransactionConfiguration)
 					// and so we must register proxyXXX and its supertypes as visible.
-					registerHierarchy(pc, t, rcm);
+//					registerHierarchy(pc, t, rcm);
 				}
 			}
 			return true;
@@ -1474,9 +1480,13 @@ public class ResourcesHandler extends Handler {
 			isConfiguration = resolve.isAtConfiguration();
 		}
 
-		accessManager.requestTypeAccess(typename, Type.inferAccessRequired(type));
-		// TODO need this guard? if (isConfiguration(configType)) {
-		registerHierarchy(pc, type, accessManager);
+		if (!isConfiguration) {
+			accessManager.requestTypeAccess(typename, Type.inferAccessRequired(type));
+			// TODO need this guard? if (isConfiguration(configType)) {
+			registerHierarchy(pc, type, accessManager);
+		} else {
+			System.out.println("XXXY: not adding info for "+typename);
+		}
 
 		recursivelyCallProcessTypeForHierarchyOfType(pc, type);
 		logger.debug("<processHierarchy "+type.getShortName());
@@ -1985,6 +1995,10 @@ public class ResourcesHandler extends Handler {
 	}
 
 	private void registerAnnotationChain(RequestedConfigurationManager tar, List<Type> annotationChain) {
+		// Causes configurations to register since they have those annotations on them
+		if (annotationChain.size()>0 && annotationChain.get(0).isAtConfiguration()) {
+			return;
+		}
 		logger.debug("attempting registration of " + annotationChain.size()
 				+ " elements of annotation hint chain");
 		for (int i = 0; i < annotationChain.size(); i++) {

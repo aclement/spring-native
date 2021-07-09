@@ -19,6 +19,7 @@ package org.springframework.context.annotation;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
+import org.springframework.boot.context.event.EventPublishingRunListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.EmbeddedValueResolverAware;
 import org.springframework.context.EnvironmentAware;
@@ -59,5 +60,8 @@ import org.springframework.nativex.hint.AccessBits;
 		),
 		@TypeHint(types= ApplicationContext.class, access = AccessBits.LOAD_AND_CONSTRUCT | AccessBits.RESOURCE)
 })
+//@NativeHint(types = @TypeHint(types = { EventPublishingRunListener.class}, 
+//	typeNames = {"org.springframework.boot.orm.jpa.JpaDatabaseInitializerDetector"},
+//	access=AccessBits.LOAD_AND_CONSTRUCT))
 public class ContextAnnotationHints implements NativeConfiguration {
 }

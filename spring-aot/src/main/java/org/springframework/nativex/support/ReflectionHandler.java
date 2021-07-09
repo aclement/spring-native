@@ -127,6 +127,9 @@ public class ReflectionHandler extends Handler {
 		if (!silent) {
 			logger.debug("Registering reflective access to " + typename+": "+(flags==null?"":Arrays.asList(flags)));
 		}
+		if (flags!=null && flags.length==0) {
+			System.out.println("XXX Ignore? "+typename);
+		}
 		List<AccessChecker> accessCheckers = ts.getAccessCheckers();
 		for (AccessChecker accessChecker: accessCheckers) {
 			boolean isOK = accessChecker.check(ts, typename);

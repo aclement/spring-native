@@ -2235,7 +2235,9 @@ public class Type {
 		if (t == null) {
 			return AccessBits.FULL_REFLECTION;
 		}
-		if (t.isAtConfiguration() || t.isMetaImportAnnotated()) {
+		if (t.isAtConfiguration()) {
+			return AccessBits.NONE;
+		} else if (t.isMetaImportAnnotated()) {
 			return AccessBits.ALL;
 		} else if (t.isImportSelector()) {
 			return AccessBits.LOAD_AND_CONSTRUCT | AccessBits.RESOURCE;

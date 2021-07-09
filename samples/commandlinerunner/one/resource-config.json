@@ -1,0 +1,352 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": "META-INF/MANIFEST.MF"
+      },
+      {
+        "pattern": "META-INF/services/.*"
+      },
+      {
+        "pattern": "META-INF/spring.binders"
+      },
+      {
+        "pattern": "META-INF/spring.components"
+      },
+      {
+        "pattern": "META-INF/spring.factories"
+      },
+      {
+        "pattern": "^META-INF/additional-spring-configuration-metadata.json"
+      },
+      {
+        "pattern": "^META-INF/build-info.properties"
+      },
+      {
+        "pattern": "^META-INF/spring-configuration-metadata.json"
+      },
+      {
+        "pattern": "^git.properties"
+      },
+      {
+        "pattern": "application.*.properties"
+      },
+      {
+        "pattern": "application.*.yaml"
+      },
+      {
+        "pattern": "application.*.yml"
+      },
+      {
+        "pattern": "banner.txt"
+      },
+      {
+        "pattern": "com/example/commandlinerunner/CLR.class"
+      },
+      {
+        "pattern": "com/example/commandlinerunner/CommandlinerunnerApplication.class"
+      },
+      {
+        "pattern": "db/.*"
+      },
+      {
+        "pattern": "java/io/Serializable.class"
+      },
+      {
+        "pattern": "java/lang/Comparable.class"
+      },
+      {
+        "pattern": "java/lang/Enum.class"
+      },
+      {
+        "pattern": "java/lang/Object.class"
+      },
+      {
+        "pattern": "java/lang/annotation/Annotation.class"
+      },
+      {
+        "pattern": "java/util/HashMap.class"
+      },
+      {
+        "pattern": "java/util/concurrent/CopyOnWriteArrayList.class"
+      },
+      {
+        "pattern": "logging.properties"
+      },
+      {
+        "pattern": "messages/.*"
+      },
+      {
+        "pattern": "org/quartz/impl/jdbcjobstore/tables_.*.sql$"
+      },
+      {
+        "pattern": "org/springframework/beans/factory/Aware.class"
+      },
+      {
+        "pattern": "org/springframework/beans/factory/BeanClassLoaderAware.class"
+      },
+      {
+        "pattern": "org/springframework/beans/factory/BeanFactoryAware.class"
+      },
+      {
+        "pattern": "org/springframework/beans/factory/annotation/AutowiredAnnotationBeanPostProcessor.class"
+      },
+      {
+        "pattern": "org/springframework/boot/CommandLineRunner.class"
+      },
+      {
+        "pattern": "org/springframework/boot/SpringBootConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/AutoConfigurationImportSelector.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/AutoConfigurationPackage.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/AutoConfigurationPackages.Registrar.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/EnableAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/SpringBootApplication.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/aop/AopAutoConfiguration.ClassProxyingConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/aop/AopAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/availability/ApplicationAvailabilityAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/CacheAutoConfiguration.CacheConfigurationImportSelector.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/CacheAutoConfiguration.CacheManagerEntityManagerFactoryDependsOnPostProcessor.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/CacheAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/CacheCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/CacheType.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/CaffeineCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/CouchbaseCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/EhCacheCacheConfiguration.ConfigAvailableCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/EhCacheCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/GenericCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/HazelcastCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/InfinispanCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.JCacheAvailableCondition.CustomJCacheCacheManager.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.JCacheAvailableCondition.JCacheProvider.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.JCacheAvailableCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.JCacheProviderAvailableCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/NoOpCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/RedisCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/cache/SimpleCacheConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/AbstractNestedCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/AnyNestedCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/ConditionalOnBean.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/ConditionalOnMissingBean.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/ConditionalOnResource.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/NoneNestedConditions.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/OnBeanCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/OnClassCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/OnPropertyCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/OnResourceCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/ResourceCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/condition/SpringBootCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/context/ConfigurationPropertiesAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/context/LifecycleAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/context/MessageSourceAutoConfiguration.ResourceBundleCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/context/MessageSourceAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/context/PropertyPlaceholderAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/data/couchbase/CouchbaseDataAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/info/ProjectInfoAutoConfiguration.GitResourceAvailableCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/info/ProjectInfoAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/r2dbc/R2dbcAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/sql/init/SqlInitializationAutoConfiguration.SqlInitializationModeCondition.ModeIsNever.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/sql/init/SqlInitializationAutoConfiguration.SqlInitializationModeCondition.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/sql/init/SqlInitializationAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/task/TaskExecutionAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/task/TaskSchedulingAutoConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/context/annotation/DeterminableImports.class"
+      },
+      {
+        "pattern": "org/springframework/boot/context/properties/ConfigurationProperties.class"
+      },
+      {
+        "pattern": "org/springframework/boot/context/properties/ConfigurationPropertiesBindingPostProcessor.class"
+      },
+      {
+        "pattern": "org/springframework/boot/context/properties/ConfigurationPropertiesScan.class"
+      },
+      {
+        "pattern": "org/springframework/boot/context/properties/ConfigurationPropertiesScanRegistrar.class"
+      },
+      {
+        "pattern": "org/springframework/boot/context/properties/EnableConfigurationProperties.class"
+      },
+      {
+        "pattern": "org/springframework/boot/context/properties/EnableConfigurationPropertiesRegistrar.class"
+      },
+      {
+        "pattern": "org/springframework/boot/logging/.*.properties"
+      },
+      {
+        "pattern": "org/springframework/boot/logging/.*.xml"
+      },
+      {
+        "pattern": "org/springframework/boot/logging/java/logging.properties"
+      },
+      {
+        "pattern": "org/springframework/boot/sql/init/dependency/DatabaseInitializationDependencyConfigurer.class"
+      },
+      {
+        "pattern": "org/springframework/context/ApplicationContext.class"
+      },
+      {
+        "pattern": "org/springframework/context/EnvironmentAware.class"
+      },
+      {
+        "pattern": "org/springframework/context/ResourceLoaderAware.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/Bean.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/CommonAnnotationBeanPostProcessor.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/Condition.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/Conditional.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/Configuration.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/ConfigurationClassPostProcessor.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/ConfigurationCondition.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/DeferredImportSelector.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/ImportBeanDefinitionRegistrar.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/ImportSelector.class"
+      },
+      {
+        "pattern": "org/springframework/context/annotation/Lazy.class"
+      },
+      {
+        "pattern": "org/springframework/context/event/EventListenerMethodProcessor.class"
+      },
+      {
+        "pattern": "org/springframework/core/Ordered.class"
+      },
+      {
+        "pattern": "org/springframework/stereotype/Component.class"
+      }
+    ]
+  },
+  "bundles": []
+}
