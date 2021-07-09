@@ -1362,7 +1362,7 @@ public class ResourcesHandler extends Handler {
 //				logger.debug("< running component processors on "+type.getDottedName());
 //			}
 			if (type.isAtConfiguration()) {
-				checkForAutoConfigureBeforeOrAfter(type, accessManager);
+//				checkForAutoConfigureBeforeOrAfter(type, accessManager);
 				String[][] validMethodsSubset = processTypeAtBeanMethods(pc, accessManager, toFollow, type);
 				if (validMethodsSubset != null) {
 					printMemberSummary("These are the valid @Bean methods",validMethodsSubset);
