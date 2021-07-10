@@ -1314,21 +1314,25 @@ public class ResourcesHandler extends Handler {
 		Map<Type,ReachedBy> toFollow = new HashMap<>();
 		for (HintApplication hint : hints) {
 			logger.debug("processing hint " + hint);
-			passesTests = processExplicitTypeReferencesFromHint(pc, accessManager, hint, toFollow);
+			RequestedConfigurationManager hintRCM = new RequestedConfigurationManager();
+			passesTests = processExplicitTypeReferencesFromHint(pc, hintRCM, hint, toFollow);
 			if (!passesTests && aotOptions.isRemoveUnusedConfig()) {
 				break;
 			}
-			passesTests = processImplicitTypeReferencesFromHint(pc, accessManager, type, hint, toFollow);
+			passesTests = processImplicitTypeReferencesFromHint(pc, hintRCM, type, hint, toFollow);
 			if (!passesTests && aotOptions.isRemoveUnusedConfig()) {
 				break;
 			}
-			registerAnnotationChain(accessManager, hint.getAnnotationChain());
-			accessManager.requestProxyDescriptors(hint.getProxyDescriptors());
-			accessManager.requestResourcesDescriptors(hint.getResourceDescriptors());
-			accessManager.requestInitializationDescriptors(hint.getInitializationDescriptors());
-			accessManager.requestOptions(hint.getOptions());
-			accessManager.requestSerializationTypes(hint.getSerializationTypes());
-			accessManager.requestJniTypes(hint.getJNITypes());
+			if (!isConditionalChain(hint.getAnnotationChain())) {
+				accessManager.mergeIn(hintRCM);
+				registerAnnotationChain(accessManager, hint.getAnnotationChain());
+				accessManager.requestProxyDescriptors(hint.getProxyDescriptors());
+				accessManager.requestResourcesDescriptors(hint.getResourceDescriptors());
+				accessManager.requestInitializationDescriptors(hint.getInitializationDescriptors());
+				accessManager.requestOptions(hint.getOptions());
+				accessManager.requestSerializationTypes(hint.getSerializationTypes());
+				accessManager.requestJniTypes(hint.getJNITypes());
+			}
 		}
 
 		// TODO think about pulling out into extension mechanism for condition evaluators
@@ -1395,6 +1399,14 @@ public class ResourcesHandler extends Handler {
 		}
 		pc.pop();
 		return passesTests;
+	}
+
+	private boolean isConditionalChain(List<Type> annotationChain) {
+		if (annotationChain.size()>1 && annotationChain.get(1).getDottedName().equals("org.springframework.boot.autoconfigure.condition.ConditionalOnClass")) {
+			System.out.println("THis is a COC chain");
+			return true;
+		}
+		return false;
 	}
 
 	private void checkForImportedConfigurations(Type type, Map<Type, ReachedBy> toFollow) {
