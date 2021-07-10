@@ -1402,8 +1402,10 @@ public class ResourcesHandler extends Handler {
 	}
 
 	private boolean isConditionalChain(List<Type> annotationChain) {
-		if (annotationChain.size()>1 && annotationChain.get(1).getDottedName().equals("org.springframework.boot.autoconfigure.condition.ConditionalOnClass")) {
-			System.out.println("THis is a COC chain");
+		if (annotationChain.size()>1 && 
+			(annotationChain.get(1).getDottedName().equals("org.springframework.boot.autoconfigure.condition.ConditionalOnClass") ||
+			 annotationChain.get(1).getDottedName().equals("org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean"))) {
+			System.out.println("This is a Conditional chain");
 			return true;
 		}
 		return false;
