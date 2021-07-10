@@ -38,21 +38,21 @@ import org.springframework.nativex.hint.AccessBits;
 @NativeHint(types = @TypeHint(types = { ComponentScan.class, Configuration.class }, access = AccessBits.CLASS | AccessBits.DECLARED_METHODS))
 // TODO Check required access for enums like this FilterType
 @NativeHint(types = { @TypeHint(types = FilterType.class, access = AccessBits.CLASS | AccessBits.DECLARED_METHODS | AccessBits.DECLARED_FIELDS) })
-@NativeHint(types =
-	@TypeHint(typeNames = "org.springframework.context.annotation.ConfigurationClassParser$DefaultDeferredImportSelectorGroup"
-	))
+//@NativeHint(types =
+//	@TypeHint(typeNames = "org.springframework.context.annotation.ConfigurationClassParser$DefaultDeferredImportSelectorGroup"
+//	))
 @NativeHint(types = {
 		@TypeHint(types = {
-				AutowireCapableBeanFactory.class, // security sample shows errors on startup without this
+//				AutowireCapableBeanFactory.class, // security sample shows errors on startup without this
 				EmbeddedValueResolverAware.class,
 				EnvironmentAware.class,
 				AnnotationConfigApplicationContext.class,
 				CommonAnnotationBeanPostProcessor.class,
 				AnnotationScopeMetadataResolver.class,
-				AutoConfigurationExcludeFilter.class,
+//				AutoConfigurationExcludeFilter.class,
 				EventListenerMethodProcessor.class,
 				DefaultEventListenerFactory.class,
-				AutowiredAnnotationBeanPostProcessor.class
+//				AutowiredAnnotationBeanPostProcessor.class
 				}),
 		@TypeHint(types= ComponentScan.Filter.class, access = AccessBits.CLASS | AccessBits.DECLARED_METHODS),
 		@TypeHint(types = { ConfigurationClassPostProcessor.class },

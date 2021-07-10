@@ -1368,27 +1368,29 @@ public class ResourcesHandler extends Handler {
 //				}
 //				logger.debug("< running component processors on "+type.getDottedName());
 //			}
-			if (type.isAtConfiguration()) {
-//				checkForAutoConfigureBeforeOrAfter(type, accessManager);
-				String[][] validMethodsSubset = processTypeAtBeanMethods(pc, accessManager, toFollow, type);
-				if (validMethodsSubset != null) {
-					printMemberSummary("These are the valid @Bean methods",validMethodsSubset);
-					/*
-					 * Think about activating this code - it produces member level correctness configuration for configurations
-					 * but it doesn't really help the figures.
-					 */
-					/*
-					Integer access = accessManager.getTypeAccessRequestedFor(type.getDottedName());
-					System.out.println("Access was "+AccessBits.toString(access));
-					if ((access & AccessBits.DECLARED_METHODS)!=0) {
-						access-=AccessBits.DECLARED_METHODS;
-					System.out.println("Access reduced to "+AccessBits.toString(access));
-						accessManager.reduceTypeAccess(type.getDottedName(),access);
-					}
-					accessManager.addMethodDescriptors(type.getDottedName(), validMethodsSubset);
-					*/
-				}
-			}
+			
+			// prevent this in native-next
+//			if (type.isAtConfiguration()) {
+////				checkForAutoConfigureBeforeOrAfter(type, accessManager);
+//				String[][] validMethodsSubset = processTypeAtBeanMethods(pc, accessManager, toFollow, type);
+//				if (validMethodsSubset != null) {
+//					printMemberSummary("These are the valid @Bean methods",validMethodsSubset);
+//					/*
+//					 * Think about activating this code - it produces member level correctness configuration for configurations
+//					 * but it doesn't really help the figures.
+//					 */
+//					/*
+//					Integer access = accessManager.getTypeAccessRequestedFor(type.getDottedName());
+//					System.out.println("Access was "+AccessBits.toString(access));
+//					if ((access & AccessBits.DECLARED_METHODS)!=0) {
+//						access-=AccessBits.DECLARED_METHODS;
+//					System.out.println("Access reduced to "+AccessBits.toString(access));
+//						accessManager.reduceTypeAccess(type.getDottedName(),access);
+//					}
+//					accessManager.addMethodDescriptors(type.getDottedName(), validMethodsSubset);
+//					*/
+//				}
+//			}
 			processTypesToFollow(pc, accessManager, type, reachedBy, toFollow);
 			registerAllRequested(accessManager);
 		}
@@ -1404,7 +1406,8 @@ public class ResourcesHandler extends Handler {
 	private boolean isConditionalChain(List<Type> annotationChain) {
 		if (annotationChain.size()>1 && 
 			(annotationChain.get(1).getDottedName().equals("org.springframework.boot.autoconfigure.condition.ConditionalOnClass") ||
-			 annotationChain.get(1).getDottedName().equals("org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean"))) {
+			 annotationChain.get(1).getDottedName().equals("org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean") ||
+			 annotationChain.get(1).getDottedName().equals("org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate"))) {
 			System.out.println("This is a Conditional chain");
 			return true;
 		}
