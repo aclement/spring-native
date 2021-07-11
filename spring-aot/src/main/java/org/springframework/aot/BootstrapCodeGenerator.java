@@ -102,12 +102,7 @@ public class BootstrapCodeGenerator {
 			
 			ConfigurationContributor configurationContributor = new ConfigurationContributor();
 			logger.debug("Executing Contributor: " + factoriesContributor.getClass().getName());
-			configurationContributor.contribute(buildContext, this.aotOptions);
-			
-//			ServiceLoader<BootstrapContributor> contributors = ServiceLoader.load(BootstrapContributor.class);
-//			for (BootstrapContributor contributor : contributors) {
-//				System.out.println("XXXOther contributors: "+contributor.getClass());
-//			}
+			configurationContributor.contribute(buildContext, this.aotOptions);		
 		}
 		else {
 			ServiceLoader<BootstrapContributor> contributors = ServiceLoader.load(BootstrapContributor.class);

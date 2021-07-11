@@ -42,6 +42,7 @@
 				<artifactId>spring-aot-maven-plugin</artifactId>
 				<configuration>
 					<removeSpelSupport>true</removeSpelSupport>
+					<mode>native</mode>
 				</configuration>
 			</plugin>
 			<plugin>

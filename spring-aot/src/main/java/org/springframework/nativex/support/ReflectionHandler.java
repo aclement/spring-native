@@ -127,16 +127,6 @@ public class ReflectionHandler extends Handler {
 		if (!silent) {
 			logger.debug("Registering reflective access to " + typename+": "+(flags==null?"":Arrays.asList(flags)));
 		}
-		if (typename.contains("Condition")) {
-			new RuntimeException("Condition related: "+typename).printStackTrace();
-		}
-		if (flags!=null && flags.length==0) {
-			System.out.println("XXX Ignore? "+typename);
-			if (typename.contains("OnBeanCondition")) {
-				new RuntimeException("XXXZZ: OnBeanCondition ").printStackTrace();
-				
-			}
-		}
 		List<AccessChecker> accessCheckers = ts.getAccessCheckers();
 		for (AccessChecker accessChecker: accessCheckers) {
 			boolean isOK = accessChecker.check(ts, typename);

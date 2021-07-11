@@ -34,7 +34,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.framework.BuildTimeProxyDescriptor;
 import org.springframework.aop.framework.ProxyConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.nativex.domain.init.InitializationDescriptor;
 import org.springframework.nativex.domain.proxies.AotProxyDescriptor;
 import org.springframework.nativex.domain.proxies.JdkProxyDescriptor;
@@ -44,10 +43,10 @@ import org.springframework.nativex.hint.AotProxyHint;
 import org.springframework.nativex.hint.FieldHint;
 import org.springframework.nativex.hint.InitializationHint;
 import org.springframework.nativex.hint.InitializationTime;
-import org.springframework.nativex.hint.JdkProxyHint;
 import org.springframework.nativex.hint.MethodHint;
 import org.springframework.nativex.hint.NativeHint;
 import org.springframework.nativex.hint.ProxyBits;
+import org.springframework.nativex.hint.JdkProxyHint;
 import org.springframework.nativex.hint.ResourceHint;
 import org.springframework.nativex.hint.TypeHint;
 import org.springframework.nativex.type.AccessDescriptor;
@@ -224,20 +223,6 @@ public class HintTests {
 		)
 	})
 	static class TestClass6 {
-	}
-	
-	@Test
-	public void m() {
-		Type resolveName = typeSystem.resolveName(X.class.getName());
-		List<HintDeclaration> compilationHints = resolveName.getCompilationHints();
-		System.out.println(compilationHints);
-		List<HintApplication> applicableHints = resolveName.getApplicableHints();
-		System.out.println(applicableHints);
-	}
-	
-	@ConditionalOnClass(String.class)
-	static class X {
-		
 	}
 
 	@Test
