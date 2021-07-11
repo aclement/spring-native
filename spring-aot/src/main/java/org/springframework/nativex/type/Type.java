@@ -38,6 +38,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javax.jws.WebParam.Mode;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.objectweb.asm.Opcodes;
@@ -1913,6 +1915,16 @@ public class Type {
 			} else if (key.equals("fields")) {
 				processHintList(value, anno -> unpackFieldInfo(anno, fds));
 			}
+		}
+		String mode = typeSystem.aotOptions==null?null:typeSystem.aotOptions.getMode();
+		if (mode!=null && accessRequired != -1 && 
+			mode.equals(org.springframework.nativex.support.Mode.NATIVE_NEXT.toString()) && 
+			(accessRequired&AccessBits.SKIP_FOR_NATIVE_NEXT)!=0) {
+			logger.debug("Skipping hints not intended for NATIVE_NEXT found on "+this.getDottedName()+" (includes TypeHints for "+types+")");
+			return;
+		}
+		if (accessRequired != -1 && (accessRequired & AccessBits.SKIP_FOR_NATIVE_NEXT)!=0) {
+			accessRequired -= AccessBits.SKIP_FOR_NATIVE_NEXT;
 		}
 		for (org.objectweb.asm.Type type : types) {
 			AccessDescriptor ad = null;

@@ -34,25 +34,29 @@ import org.springframework.nativex.hint.AccessBits;
 
 @NativeHint(trigger = AdviceModeImportSelector.class, abortIfTypesMissing = true, follow = true)
 @NativeHint(trigger = Import.class, follow = true) // Whatever is @Imported should be followed
-//@NativeHint(trigger = Conditional.class, extractTypesFromAttributes = "value" ) // TODO need extract?
+@NativeHint(trigger = Conditional.class, extractTypesFromAttributes = "value" ) // TODO need extract?
 @NativeHint(types = @TypeHint(types = { ComponentScan.class, Configuration.class }, access = AccessBits.CLASS | AccessBits.DECLARED_METHODS))
 // TODO Check required access for enums like this FilterType
 @NativeHint(types = { @TypeHint(types = FilterType.class, access = AccessBits.CLASS | AccessBits.DECLARED_METHODS | AccessBits.DECLARED_FIELDS) })
-//@NativeHint(types =
-//	@TypeHint(typeNames = "org.springframework.context.annotation.ConfigurationClassParser$DefaultDeferredImportSelectorGroup"
-//	))
+@NativeHint(types =
+	@TypeHint(typeNames = "org.springframework.context.annotation.ConfigurationClassParser$DefaultDeferredImportSelectorGroup",
+	access=AccessBits.SKIP_FOR_NATIVE_NEXT))
 @NativeHint(types = {
 		@TypeHint(types = {
-//				AutowireCapableBeanFactory.class, // security sample shows errors on startup without this
+				AutowireCapableBeanFactory.class, // security sample shows errors on startup without this
+				AutoConfigurationExcludeFilter.class,
+				AutowiredAnnotationBeanPostProcessor.class				
+		},access=AccessBits.SKIP_FOR_NATIVE_NEXT)
+})
+@NativeHint(types = {
+		@TypeHint(types = {
 				EmbeddedValueResolverAware.class,
 				EnvironmentAware.class,
 				AnnotationConfigApplicationContext.class,
 				CommonAnnotationBeanPostProcessor.class,
 				AnnotationScopeMetadataResolver.class,
-//				AutoConfigurationExcludeFilter.class,
 				EventListenerMethodProcessor.class,
 				DefaultEventListenerFactory.class,
-//				AutowiredAnnotationBeanPostProcessor.class
 				}),
 		@TypeHint(types= ComponentScan.Filter.class, access = AccessBits.CLASS | AccessBits.DECLARED_METHODS),
 		@TypeHint(types = { ConfigurationClassPostProcessor.class },
@@ -60,8 +64,5 @@ import org.springframework.nativex.hint.AccessBits;
 		),
 		@TypeHint(types= ApplicationContext.class, access = AccessBits.LOAD_AND_CONSTRUCT | AccessBits.RESOURCE)
 })
-//@NativeHint(types = @TypeHint(types = { EventPublishingRunListener.class}, 
-//	typeNames = {"org.springframework.boot.orm.jpa.JpaDatabaseInitializerDetector"},
-//	access=AccessBits.LOAD_AND_CONSTRUCT))
 public class ContextAnnotationHints implements NativeConfiguration {
 }
