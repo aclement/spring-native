@@ -13,6 +13,13 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.graalvm.nativeimage</groupId>
+			<artifactId>graal-hotspot-library</artifactId>
+			<!-- 
+			<scope>provided</scope>
+			 -->
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.experimental</groupId>
 			<artifactId>spring-native</artifactId>
 		</dependency>
