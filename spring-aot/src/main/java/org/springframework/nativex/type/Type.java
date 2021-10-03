@@ -1941,6 +1941,13 @@ public class Type {
 	ClassNode getClassNode() {
 		return node;
 	}
+	
+	private int getDefaultTypeHintAccess() {
+		Type typeHint = typeSystem.resolveDotted("org.springframework.nativex.hint.TypeHint");
+		List<Method> accessMethod = typeHint.getMethod("access");
+		int access = (Integer)accessMethod.get(0).getAnnotationDefaultValue();
+		return access;
+	}
 
 	private void unpackTypeHint(AnnotationNode typeInfo, HintDeclaration ch) {
 		List<Object> values = typeInfo.values;
@@ -1975,7 +1982,12 @@ public class Type {
 		for (org.objectweb.asm.Type type : types) {
 			AccessDescriptor ad = null;
 			if (accessRequired == -1) {
-				ad = new AccessDescriptor(inferAccessRequired(type, mds, fds), mds, fds);
+				int defaultAccess = getDefaultTypeHintAccess();
+				int inferredAccess = inferAccessRequired(type, mds, fds);
+				if (defaultAccess != inferredAccess) {
+					System.out.println("MISMATCH: for hint on trigger "+ch.getTriggerTypename()+" for type "+type.getClassName()+" inferred="+AccessBits.toString(inferredAccess)+" default="+AccessBits.toString(defaultAccess));
+				}
+				ad = new AccessDescriptor(getDefaultTypeHintAccess()/*inferAccessRequired(type, mds, fds)*/, mds, fds);
 			} else {
 				if ((MethodDescriptor.includesConstructors(mds) || MethodDescriptor.includesStaticInitializers(mds)) && 
 						AccessBits.isSet(accessRequired, AccessBits.DECLARED_METHODS|AccessBits.PUBLIC_METHODS)) {
@@ -1994,7 +2006,12 @@ public class Type {
 			if (resolvedType != null) {
 				AccessDescriptor ad = null;
 				if (accessRequired == -1) {
-					ad = new AccessDescriptor(inferAccessRequired(resolvedType), mds, fds);
+					int defaultAccess = getDefaultTypeHintAccess();
+					int inferredAccess = inferAccessRequired(resolvedType);
+					if (defaultAccess != inferredAccess) {
+						System.out.println("MISMATCH; for hint on trigger "+ch.getTriggerTypename()+" for type "+typeName+" inferred="+AccessBits.toString(inferredAccess)+" default="+AccessBits.toString(defaultAccess));
+					}
+					ad = new AccessDescriptor(defaultAccess,/*inferAccessRequired(resolvedType),*/ mds, fds);
 				} else {
 					if ((MethodDescriptor.includesConstructors(mds) || MethodDescriptor.includesStaticInitializers(mds)) && 
 							AccessBits.isSet(accessRequired, AccessBits.DECLARED_METHODS|AccessBits.PUBLIC_METHODS)) {
@@ -2315,8 +2332,7 @@ public class Type {
 			return AccessBits.LOAD_AND_CONSTRUCT | AccessBits.RESOURCE; // Including resource because of KafkaBootstrapConfiguration
 		} else if (t.isBeanFactoryPostProcessor()) {
 			// vanilla-jpa demos these needing accessing a a resource *sigh*
-			// TODO investigate if deeper pattern can tell us why certain things need
-			// RESOURCE
+			// TODO investigate if deeper pattern can tell us why certain things need RESOURCE
 			return AccessBits.LOAD_AND_CONSTRUCT | AccessBits.DECLARED_METHODS | AccessBits.RESOURCE;
 		} else if (t.isBeanPostProcessor()) {
 			return AccessBits.CLASS | AccessBits.DECLARED_CONSTRUCTORS /*| AccessBits.DECLARED_METHODS*/ | AccessBits.RESOURCE;

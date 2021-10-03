@@ -109,6 +109,10 @@ public class Method {
 		return results == null? Collections.emptyList():results;
 	}
 	
+	public Object getAnnotationDefaultValue() {
+		return mn.annotationDefault;
+	}
+	
 	public List<Type> getAnnotationTypes() {
 		List<Type> results = null;
 		if (mn.visibleAnnotations!= null) {
